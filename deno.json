@@ -1,0 +1,43 @@
+{
+  "lint": {
+    "files": {
+      "include": [
+        "src/"
+      ],
+      "exclude": [
+        "src/testdata/"
+      ]
+    },
+    "rules": {
+      "tags": [
+        "recommended"
+      ],
+      "include": [],
+      "exclude": [
+        "no-unused-vars",
+        "no-var",
+        "prefer-const"
+      ]
+    }
+  },
+  "fmt": {
+    "files": {
+      "include": [
+        "src/"
+      ],
+      "exclude": [
+        "src/docs/",
+        "src/mock/"
+      ]
+    },
+    "options": {
+      "useTabs": false,
+      "lineWidth": 80,
+      "indentWidth": 2,
+      "singleQuote": false
+    }
+  },
+  "tasks": {
+    "debug": "deno run --allow-net --allow-read src/main.js"
+  }
+}
