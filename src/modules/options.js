@@ -1,7 +1,5 @@
-/** @type {KlarVærOptions} */
-import options from "../../options.json" assert { type: "json" };
 
-function optionsIsWellFormed() {
+function optionsIsWellFormed(options) {
   let { location, noticeInHours, sms } = options;
 
   if (!location) return false;
@@ -28,8 +26,9 @@ function optionsIsWellFormed() {
 /** Returns the user options.
  * @returns {KlarVærOptions}
  */
-function getOptions() {
+async function getOptions() {
+  let options = await import("/usr/local/bin/granaryalert/options.json", { assert: { type: "json" } });
   return options;
 }
 
-export { options, optionsIsWellFormed };
+export { getOptions, optionsIsWellFormed };
