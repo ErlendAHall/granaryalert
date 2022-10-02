@@ -1,5 +1,5 @@
 import { getPossibleLowClouds } from "./modules/weather.js";
-import { optionsIsWellFormed } from "./modules/options.js";
+import { optionsIsWellFormed, getOptions } from "./modules/options.js";
 import { SMS } from "./modules/alert/sms.js";
 
 async function handleDailyReport() {
@@ -28,13 +28,16 @@ function createMessage(reports) {
 
   return `Det blir klarvær (${Math.floor(reportToBeReported.cloudAreaFraction)
     }%) den ${day}. fra klokken ${hour}. Lufttemperatur ${Math.floor(reportToBeReported.airTemperature)
-    }grader. Vindhastighet ${Math.floor(reportToBeReported.windSpeed)}m/s`;
+    }grader. Vindhastighet ${Math.floor(reportToBeReported.windSpeed)}m/s.`;
 }
 
 // PROGRAM START
 // TODO: Check if options is well-formed before starting program.
-if (optionsIsWellFormed()) {
+let options = await getOptions();
+if (optionsIsWellFormed(options)) {
   let everyDayInterval = 86400000; //1 day in milliseconds.
   setInterval(handleDailyReport, everyDayInterval);
-} else console.log("Options is not well formed");
+} else {
+  Deno.exit(1); // Options is not well formed
+}
 

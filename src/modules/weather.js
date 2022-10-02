@@ -1,6 +1,5 @@
 /** @type {KlarVærOptions} */
-import options from "../../options.json" assert { type: "json" };
-console.log(options);
+import options from "./options.js";
 
 /** Returns the datetime certain days in the future.
  * The number of days is user defined in the options file.
@@ -18,10 +17,8 @@ function getNoticePeriodFromNow() {
 async function getYrForecast() {
   // TODO: Log fetch failures.
   let url =
-    `https://api.met.no/weatherapi/locationforecast/2.0/complete?altitude=${
-      String(options.location.altitude)
-    }&lat=${String(options.location.latitude)}&lon=${
-      String(options.location.longitude)
+    `https://api.met.no/weatherapi/locationforecast/2.0/complete?altitude=${String(options.location.altitude)
+    }&lat=${String(options.location.latitude)}&lon=${String(options.location.longitude)
     }`;
   let yrResponse = await fetch(url);
   return yrResponse.json();
@@ -85,7 +82,6 @@ async function getLowCloudsReport() {
 async function getPossibleLowClouds() {
   /** @type {LowCloudsReport[]} */
   let lowCloudsReports = await getLowCloudsReport();
-  console.log(lowCloudsReports);
 
   return lowCloudsReports.filter((report) => report.cloudAreaFraction <= 30);
 }
