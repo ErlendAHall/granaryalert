@@ -1,5 +1,8 @@
+import "../../docs/index.js";
+
 /** @type {KlarVærOptions} */
-import options from "./options.js";
+import { getOptions } from "./options/options.js";
+let options = getOptions();
 
 /** Returns the datetime certain days in the future.
  * The number of days is user defined in the options file.
@@ -17,8 +20,10 @@ function getNoticePeriodFromNow() {
 async function getYrForecast() {
   // TODO: Log fetch failures.
   let url =
-    `https://api.met.no/weatherapi/locationforecast/2.0/complete?altitude=${String(options.location.altitude)
-    }&lat=${String(options.location.latitude)}&lon=${String(options.location.longitude)
+    `https://api.met.no/weatherapi/locationforecast/2.0/complete?altitude=${
+      String(options.location.altitude)
+    }&lat=${String(options.location.latitude)}&lon=${
+      String(options.location.longitude)
     }`;
   let yrResponse = await fetch(url);
   return yrResponse.json();

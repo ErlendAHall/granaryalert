@@ -38,6 +38,6 @@
     }
   },
   "tasks": {
-    "debug": "deno run --allow-net --allow-read src/main.js"
+    "debug": "deno run --inspect-brk --allow-net --allow-read src/main.js --debug"
   }
 }

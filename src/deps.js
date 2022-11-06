@@ -1,2 +1,1 @@
-import("../docs/yr.js");
-export * from "./mock/yr.js";
+export { parse as parseCmdArgs } from "https://deno.land/std/flags/mod.ts";
