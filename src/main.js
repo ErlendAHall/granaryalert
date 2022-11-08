@@ -1,7 +1,7 @@
 import { getPossibleLowClouds } from "./modules/weather.js";
 import { getOptions } from "./modules/options/options.js";
 import { SMS } from "./modules/alert/sms.js";
-import { parseCmdArgs } from "./deps.js";
+import { env } from "./modules/env/env.js";
 
 async function handleDailyReport() {
   let possibleLowClouds = await getPossibleLowClouds();
@@ -35,13 +35,12 @@ function createMessage(reports) {
 
 // PROGRAM START
 // TODO: Check if options is well-formed before starting program.
-const flags = parseCmdArgs(Deno.args);
 let options = await getOptions();
 
 if (options) {
   console.info("Options was successfully read.");
   
-  if (flags.debug) {
+  if (env.debug) {
     console.info("Dry running");
     await handleDailyReport();
   } else {
