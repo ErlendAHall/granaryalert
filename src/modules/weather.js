@@ -2,7 +2,8 @@ import "../../docs/index.js";
 
 /** @type {KlarVærOptions} */
 import { getOptions } from "./options/options.js";
-let options = getOptions();
+let options = await getOptions();
+
 
 /** Returns the datetime certain days in the future.
  * The number of days is user defined in the options file.

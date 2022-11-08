@@ -1,7 +1,8 @@
 import { getOptions } from "../options/options.js";
+import { env } from "../env/env.js";
 
 const SMS = Object.create({});
-let options = getOptions();
+let options = await getOptions();
 
 /**
  * Constructs a SMS-send request to Twilio.
@@ -45,12 +46,18 @@ SMS.createRequest = function createHTTPRequest(message) {
  * @param {string} message The bodytext of the SMS message.
  */
 SMS.send = async function relaySMSToTwilio(message) {
-  // TODO: Validate message
-  let sendRequest = this.createRequest(message);
-  console.info(options);
-  console.info(sendRequest);
-  // TODO: Handle failed sends.
-  await sendRequest();
+
+  if (env.debug) {
+    console.info("Sending message:");
+    console.info(message)
+  } else {
+    // TODO: Validate message
+    let sendRequest = this.createRequest(message);
+    console.info(options);
+    console.info(sendRequest);
+    // TODO: Handle failed sends.
+    await sendRequest();
+  }
 };
 
 export { SMS };

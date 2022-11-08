@@ -1,6 +1,7 @@
-import { parseCmdArgs } from "../../deps.js";
 import { debugOptions } from "./debugOptions.js";
-import { resolve } from "https://deno.land/std/path/mod.ts";
+import { resolve } from "../../deps.js";
+import { env } from "../env/env.js";
+
 
 function optionsIsWellFormed(options) {
   let { location, noticeInHours, sms } = options;
@@ -36,8 +37,7 @@ function optionsIsWellFormed(options) {
  * Returns a pre-parsed options file for debug purposes
  */
 function getDebugOptions() {
-  let flags = parseCmdArgs(Deno.args);
-  if (!flags.debug) {
+  if (!env.debug) {
     console.error(
       "A pre-parsed options is being used, but the program is not in debug mode.",
     );
@@ -48,7 +48,7 @@ function getDebugOptions() {
   return debugOptions;
 }
 /** Returns the user options.
- * @returns {KlarVærOptions}
+ * @returns {Promise<KlarVærOptions>}
  */
 async function readAndParseOptions() {
   let path = resolve(Deno.execPath(), "..", "options.json");
@@ -88,10 +88,9 @@ async function readAndParseOptions() {
  * Returns a parsed options object or null if the options did not pass validation.
  */
 async function getOptions() {
-  let flags = parseCmdArgs(Deno.args);
 
   // For debug mode.
-  if (flags.debug) return getDebugOptions();
+  if (env.debug) return getDebugOptions();
 
   // For production
   let options = await readAndParseOptions();
