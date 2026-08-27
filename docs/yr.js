@@ -26,11 +26,10 @@
  */
 
 /**
- * @typedef YRGenericData 
+ * @typedef YRGenericData
  * @type {object}
  * @param {YrInstant}
-*/
-
+ */
 
 /**
  * @typedef YrInstant
